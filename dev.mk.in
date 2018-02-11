@@ -29,7 +29,7 @@ generated_docs = \
     doc/MANUAL.html \
     doc/NEWS.html \
     doc/ccache.1
-built_dist_files = $(generated_sources) $(generated_docs)
+#built_dist_files = $(generated_sources) $(generated_docs)
 
 headers = \
     src/ccache.h \
@@ -73,9 +73,9 @@ source_dist_files = \
     configure \
     configure.ac \
     dev.mk.in \
-    doc/AUTHORS.adoc \
-    doc/MANUAL.adoc \
-    doc/NEWS.adoc \
+#    doc/AUTHORS.adoc \
+#    doc/MANUAL.adoc \
+#    doc/NEWS.adoc \
     install-sh \
     m4 \
     src/confitems.gperf \
@@ -116,7 +116,6 @@ $(dist_archives): $(dist_files)
 	mkdir $$dir && \
 	(cd $(srcdir) && \
 	 rsync -r --relative $(source_dist_files) $$dir) && \
-	cp $(srcdir)/doc/INSTALL-from-release-archive.md $$dir/INSTALL.md && \
 	(cd $(builddir) && \
 	 rsync -r --relative $(built_dist_files) $$dir) && \
 	echo "Remove this file to enable developer mode." >$$dir/dev_mode_disabled && \
@@ -162,17 +161,20 @@ distcheck: $(firstword $(dist_archives))
 docs: $(generated_docs)
 
 %.html: %.adoc
-	@mkdir -p $(@D)
-	$(ASCIIDOC) -o $@ -a revnumber=$(version) -a toc -b xhtml11 $<
+	$(shell echo) # Dummy action
+#	@mkdir -p $(@D)
+#	$(ASCIIDOC) -o $@ -a revnumber=$(version) -a toc -b xhtml11 $<
 
 %.xml: %.adoc
-	@mkdir -p $(@D)
+	$(shell echo) # Dummy action
+#	@mkdir -p $(@D)
 # Make literals stand out as bold in the man page:
-	$(ASCIIDOC) -a revnumber=$(version) -d manpage -b docbook -o - $< | \
-	  perl -pe 's!<literal>(.*?)</literal>!<emphasis role="strong">\1</emphasis>!g' >$@
+#	$(ASCIIDOC) -a revnumber=$(version) -d manpage -b docbook -o - $< | \
+#	  perl -pe 's!<literal>(.*?)</literal>!<emphasis role="strong">\1</emphasis>!g' >$@
 
 doc/ccache.1: doc/MANUAL.xml
-	$(A2X) --doctype manpage --format manpage $<
+	$(shell echo) # Dummy action
+#	$(A2X) --doctype manpage --format manpage $<
 
 .PHONY: update-authors
 update-authors:

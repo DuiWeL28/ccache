@@ -101,7 +101,7 @@ ccache.1: doc/ccache.1
 	cp $< $@
 
 .PHONY: install
-install: ccache$(EXEEXT) ccache.1
+install: ccache$(EXEEXT)
 	$(installcmd) -d $(DESTDIR)$(bindir)
 	$(installcmd) -m 755 ccache$(EXEEXT) $(DESTDIR)$(bindir)
 #	$(installcmd) -d $(DESTDIR)$(mandir)/man1
